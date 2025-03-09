@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Story Generator</title>
+    <style>
+        body { 
+            font-family: Arial, sans-serif; 
+            text-align: center; 
+            background-color: #f0f8ff; 
+            transition: background 0.5s;
+        }
+        .container { 
+            max-width: 600px; 
+            margin: 50px auto; 
+            background: #ffffff; 
+            padding: 20px; 
+            border-radius: 10px; 
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); 
+        }
+        .theme-button {
+            margin: 5px;
+            padding: 5px 15px;
+            cursor: pointer;
+        }
+        .story-output {
+            margin-top: 20px;
+            padding: 15px;
+            background: #e6f7ff;
+            border: 2px solid #8ab6d6;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>AI Story Generator</h1>
+
+        <!-- Image Upload -->
+        <input type="file" id="imageUpload" accept="image/*"><br><br>
+
+        <!-- Genre Selection -->
+        <label for="genre">Choose a genre:</label>
+        <select id="genre">
+            <option value="romance">Romance</option>
+            <option value="mystery">Mystery</option>
+            <option value="fantasy">Fantasy</option>
+            <option value="school_drama">School Drama</option>
+            <option value="sci_fi">Sci-Fi</option>
+        </select><br><br>
+
+        <!-- Include Characters and Page Numbers -->
+        <label>
+            <input type="checkbox" id="includeCharacters"> Include Characters
+        </label><br>
+        <label>
+            <input type="checkbox" id="includePageNumbers"> Include Page Numbers
+        </label><br><br>
+
+        <!-- Theme Customization -->
+        <button class="theme-button" onclick="changeTheme('#f0f8ff')">Light Theme</button>
+        <button class="theme-button" onclick="changeTheme('#333333', '#ffffff')">Dark Theme</button>
+        <button class="theme-button" onclick="changeTheme('#ffefdb')">Warm Theme</button><br><br>
+
+        <!-- Mature Mode Confirmation -->
+        <label>
+            <input type="checkbox" id="enable18Plus"> Enable 18+ Romance Mode
+        </label><br><br>
+
+        <button onclick="generateStory()">Generate Story</button>
+        <button onclick="generateNextStep()">What Happens Next?</button>
+        <button onclick="saveAsPDF()">Save as PDF</button>
+
+        <div class="story-output" id="storyOutput">Your story will appear here...</div>
+    </div>
+
+    <script>
+        function changeTheme(bgColor, textColor = '#000000') {
+            document.body.style.backgroundColor = bgColor;
+            document.body.style.color = textColor;
+        }
+
+        function generateStory() {
+            const genre = document.getElementById('genre').value;
+            const includeCharacters = document.getElementById('includeCharacters').checked;
+            const includePageNumbers = document.getElementById('includePageNumbers').checked;
+            const enable18Plus = document.getElementById('enable18Plus').checked;
+
+            if (enable18Plus) {
+                const confirm18 = confirm("Warning: This content may include mature themes. Are you sure you want to proceed?");
+                if (!confirm18) return;
+            }
+
+            const storyOutput = document.getElementById('storyOutput');
+            storyOutput.innerHTML = `
+                <h3>Generated Story</h3>
+                <p>Genre: ${genre}</p>
+                <p>Characters Included: ${includeCharacters ? 'Yes' : 'No'}</p>
+                <p>Page Numbers Included: ${includePageNumbers ? 'Yes' : 'No'}</p>
+                <p>${enable18Plus ? 'This story may contain mature themes.' : ''}</p>
+                <p>Your adventure begins...</p>
+            `;
+        }
+
+        function generateNextStep() {
+            const storyOutput = document.getElementById('storyOutput');
+            storyOutput.innerHTML += `
+                <p><b>Next Step:</b> What would happen if the main character followed their heart instead of their mind?</p>
+            `;
+        }
+
+        function saveAsPDF() {
+            alert("Your story will be saved as a PDF. (PDF generation feature in progress)");
+        }
+    </script>
+</body>
+</html>
