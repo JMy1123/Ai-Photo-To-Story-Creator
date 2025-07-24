@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>AI Video Generator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f0f8ff;
+        }
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            background: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        textarea {
+            width: 100%;
+        }
+        .video-output {
+            margin-top: 20px;
+            padding: 15px;
+            background: #e6f7ff;
+            border: 2px solid #8ab6d6;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>AI Prompt/Image to Video Generator</h1>
+
+        <label for="videoPrompt">Prompt:</label><br>
+        <textarea id="videoPrompt" rows="3"></textarea><br><br>
+
+        <label for="videoImage">Upload Image (optional):</label><br>
+        <input type="file" id="videoImage" accept="image/*"><br><br>
+
+        <label for="videoLength">Video length (seconds, max 120):</label><br>
+        <input type="number" id="videoLength" value="30" min="1" max="120"><br><br>
+
+        <label for="videoStyle">Choose Style:</label>
+        <select id="videoStyle">
+            <option value="realistic">Realistic</option>
+            <option value="cinematic">Cinematic</option>
+            <option value="cartoon">Cartoon</option>
+        </select><br><br>
+
+        <button onclick="generateVideo()">Generate Video</button>
+
+        <div class="video-output" id="videoOutput">Your video will appear here...</div>
+    </div>
+
+<script>
+function generateVideo() {
+    const prompt = document.getElementById('videoPrompt').value.trim();
+    const length = parseInt(document.getElementById('videoLength').value, 10);
+    if (!prompt) {
+        alert('Please enter a prompt.');
+        return;
+    }
+    if (length > 120) {
+        alert('Video length cannot exceed 120 seconds.');
+        return;
+    }
+    const style = document.getElementById('videoStyle').value;
+    const output = document.getElementById('videoOutput');
+    output.innerHTML = `<p><b>Prompt:</b> ${prompt}<br>
+        <b>Length:</b> ${length} seconds<br>
+        <b>Style:</b> ${style}<br>
+        Generating video... (placeholder)</p>`;
+}
+</script>
+</body>
+</html>
